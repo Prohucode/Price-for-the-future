@@ -3,7 +3,7 @@ let episodes_1 = {
 
     scene_1: {
         background: {
-            src: new URL("../assets/scene/v1.mp4", import.meta.url).href,
+            src: new URL("../assets/scene/b1.mp4", import.meta.url).href,
             volume: 0,
             loop: false,
             play: true,
@@ -30,7 +30,7 @@ let episodes_1 = {
 
     scene_2: {
         background: {
-            src: new URL("../assets/scene/v2.mp4", import.meta.url).href,
+            src: new URL("../assets/scene/b2.mp4", import.meta.url).href,
             volume: 0,
             loop: false,
             play: true,
@@ -40,13 +40,22 @@ let episodes_1 = {
         },
         characters: [
             {
-                src: new URL("../assets/scene/Jack Batler.webm", import.meta.url).href,
+                src: new URL("../assets/scene/p1.webm", import.meta.url).href,
                 volume: 0,
                 loop: true,
                 play: true,
-                x: "10%",
-                y: "30%",
-                width: "20%"
+                x: "2%",
+                y: "25%",
+                width: "30%"
+            },
+              {
+                src: new URL("../assets/scene/p2.webm", import.meta.url).href,
+                volume: 0,
+                loop: true,
+                play: true,
+                x: "70%",
+                y: "25%",
+                width: "30%"
             },
 
         ],
@@ -61,7 +70,7 @@ let episodes_1 = {
 
     scene_3: {
         background: {
-            src: new URL("../assets/scene/v3.mp4", import.meta.url).href,
+            src: new URL("../assets/scene/b3.mp4", import.meta.url).href,
             volume: 0,
             loop: false,
             play: true,
