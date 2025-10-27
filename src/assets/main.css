@@ -1,0 +1,35 @@
+@font-face {
+	font-family: "MazzardH-Light";
+	src: url("../assets/fonts/MazzardH-Light.woff2") format("woff2"), url("../assets/fonts/MazzardH-Light.woff") format("woff");
+	font-weight: bold;
+	font-style: normal;
+}
+
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+/* Делаем так, чтобы страница всё равно прокручивалась */
+html,
+body {
+	overflow: hidden;
+	font-family: "MazzardH-Light", sans-serif;
+	margin: 0px !important;
+	padding: 0px !important;
+}
+
+.pf-btn {
+	padding: 10px 30px !important;
+	height: 50px !important;
+	border-radius: 0px !important;
+	font-family: "MazzardH-Light", sans-serif;
+	font-size: 14px !important;
+	text-transform: none !important;
+}
+
+.pf-btn .v-btn__append {
+	margin-left: auto !important;
+}
+
+
