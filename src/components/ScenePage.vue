@@ -23,12 +23,12 @@
 
 
 
-		<div class="top">{{ this.active_scene }}</div>
+		<!-- <div class="top">{{ this.active_scene }}</div> -->
 		<div class="down">
 			<div class="box">
 				<div class="panel">
 					<div class="name">
-						<v-avatar :image="structure[active_scene]?.headband" size="40"></v-avatar>
+						<!-- <v-avatar :image="structure[active_scene]?.headband" size="40"></v-avatar> -->
 						<b>{{ this.structure[this.active_scene]?.authore }} :</b>
 					</div>
 
