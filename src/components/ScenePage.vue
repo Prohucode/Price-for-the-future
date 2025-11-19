@@ -10,9 +10,8 @@
 			</video>
 		</div>
 
-
-		<video v-for="character in (structure[active_scene]?.characters ?? [])" class="character" :key="`${active_scene} ${character?.src}`"
-			:style="{
+		<video v-for="character in (structure[active_scene]?.characters ?? [])" class="character"
+			:key="`${active_scene} ${character?.src}`" :style="{
 				top: character?.y,
 				left: character?.x,
 				width: character.width
@@ -21,22 +20,20 @@
 			Ваш браузер не поддерживает видео-тег.
 		</video>
 
-
-
-		<!-- <div class="top">{{ this.active_scene }}</div> -->
 		<div class="down">
 			<div class="box">
 				<div class="panel">
 					<div class="name">
-						<!-- <v-avatar :image="structure[active_scene]?.headband" size="40"></v-avatar> -->
-						<b>{{ this.structure[this.active_scene]?.authore }} :</b>
+						<b>{{ structure[active_scene]?.authore }} :</b>
 					</div>
 
-					<div class="dialogue"><span v-html="this.text_line"></span></div>
+					<div class="dialogue">
+						<span v-html="text_line"></span>
+					</div>
 
 					<div class="actions">
-						<v-btn class="pf-btn" v-for="(item, index) in this.structure[this.active_scene]?.actions"
-							:key="index" @click="setScene(item.next_scene)" variant="flat" color="#1C1C1C">
+						<v-btn class="pf-btn" v-for="(item, index) in structure[active_scene]?.actions" :key="index"
+							@click="setScene(item.next_scene)" variant="flat" color="#1C1C1C">
 							{{ item.title }}
 						</v-btn>
 					</div>
@@ -58,9 +55,10 @@ export default {
 	data() {
 		return {
 			text_line: "",
-			timerId: false,
+			timerId: null,
 			structure: {},
 			sceneStore: useSceneStore(),
+			audio: null, // текущий Audio-объект сцены
 		};
 	},
 	computed: {
@@ -71,45 +69,99 @@ export default {
 
 	beforeMount() {
 		this.structure = episodes;
-		console.log(this.structure);
 	},
 
 	mounted() {
+		// стартовый текст и (опционально) звук для первой сцены
 		this.setTextline();
-		console.log(this.active_scene);
+		this.setAudio();
 	},
 
-	unmounted() {
+	beforeUnmount() {
 		this.clearTimer();
+		if (this.audio) {
+			this.audio.pause();
+			this.audio = null;
+		}
+	},
+
+	watch: {
+		// при смене сцены автоматически обновляем текст + аудио
+		active_scene() {
+			this.clearTimer();
+			this.setTextline();
+			this.setAudio();
+		},
 	},
 
 	methods: {
 		setScene(scene) {
 			this.sceneStore.setScene(scene);
-			this.clearTimer();
-			this.setTextline();
+			// дальше всё сделает watcher active_scene
 		},
 
 		clearTimer() {
-			if (this.timerId != false) clearTimeout(this.timerId);
+			if (this.timerId) {
+				clearTimeout(this.timerId);
+				this.timerId = null;
+			}
 		},
 
 		setTextline() {
+			const scene = this.structure[this.active_scene];
+			if (!scene || !scene.dialogue) {
+				this.text_line = "";
+				return;
+			}
+
 			this.text_line = "";
-			var i = 0;
-			var text = this.structure[this.active_scene].dialogue;
+			let i = 0;
+			const text = scene.dialogue;
 
 			const nextchar = () => {
 				this.text_line += text[i];
 				i += 1;
 
 				if (this.text_line.length < text.length) {
-					let timeout = Math.round(Math.random() * 30);
+					const timeout = Math.round(Math.random() * 120);
 					this.timerId = setTimeout(nextchar, timeout);
 				}
 			};
 
 			nextchar();
+		},
+
+		setAudio() {
+			const scene = this.structure[this.active_scene];
+			const audio_obj = scene?.audio;
+
+			// если у сцены нет аудио — просто останавливаем предыдущее
+			if (!audio_obj || !audio_obj.src) {
+				if (this.audio) {
+					this.audio.pause();
+					this.audio = null;
+				}
+				return;
+			}
+
+			// останавливаем предыдущий трек
+			if (this.audio) {
+				this.audio.pause();
+				this.audio = null;
+			}
+
+			const audio = new Audio(audio_obj.src);
+			audio.loop = !!audio_obj.loop;
+			audio.volume = typeof audio_obj.volume === "number" ? audio_obj.volume : 1;
+
+			this.audio = audio;
+
+			// autoplay сработает, если смена сцены произошла по клику пользователя
+			audio
+				.play()
+				.catch((err) => {
+					console.error("Error playing scene audio:", err);
+				});
 		},
 	},
 };
@@ -162,7 +214,6 @@ export default {
 	width: 100%;
 	z-index: 1;
 	padding: 30px;
-	/* background-color: rgba(0, 255, 255, 0.616); */
 }
 
 .down {
@@ -195,9 +246,8 @@ export default {
 	color: rgb(167, 167, 167);
 	font-size: 18px;
 	width: 100%;
-	display: flex;
 	align-items: center;
-	gap: 10px
+	gap: 10px;
 }
 
 .dialogue {
@@ -212,14 +262,12 @@ export default {
 	display: flex;
 	flex-direction: row;
 	gap: 15px;
-	/* padding-top: 10px; */
 }
 
 .button {
 	padding: 15px 20px;
 	color: rgb(167, 167, 167);
 	border-bottom: 1px solid white;
-	/* border-top: 1px solid white; */
 	transition: background-color 0.2s ease-in-out;
 	cursor: pointer;
 	user-select: none;
