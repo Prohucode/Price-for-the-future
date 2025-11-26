@@ -113,7 +113,7 @@ let episodes_1 = {
 
     scene_5: {
         background: {
-            src: new URL("../assets/scene/b4.mp4", import.meta.url).href,
+            src: new URL("../assets/scene/b7.mp4", import.meta.url).href,
             volume: 0,
             loop: false,
             play: true,
@@ -154,10 +154,10 @@ let episodes_1 = {
         { title: "далее", next_scene: "scene_6" }],
     },
 
-
+    
     scene_6: {
         background: {
-            src: new URL("../assets/scene/b5.mp4", import.meta.url).href,
+            src: new URL("../assets/scene/b7.mp4", import.meta.url).href,
             volume: 0,
             loop: false,
             play: true,
@@ -165,16 +165,43 @@ let episodes_1 = {
             y: "0%",
             width: "100%"
         },
-        characters: [],
-        authore: "Система",
-        dialogue: "Ангар старой орбитальной станции. В воздухе витает запах горелого металла и машинного масла. В центре — потрёпанный, но ещё рабочий космический челнок. Под ним, копается Стивен, проверяя силовые кабели. Он замечает приближающегося Джека и, не отвлекаясь от работы, говорит...",
+        audio: {
+            src: new URL("../assets/audio/scene_6.mp3", import.meta.url).href,
+            loop: false,
+            play: true,
+            volume: 0.8, // 0–1
+        },
+        characters: [
+            {
+                src: new URL("../assets/scene/p4.webm", import.meta.url).href,
+                volume: 0,
+                loop: true,
+                play: true,
+                x: "65%",
+                y: "25%",
+                width: "30%"
+            },
+            // {
+            //     src: new URL("../assets/scene/p2.webm", import.meta.url).href,
+            //     volume: 0,
+            //     loop: true,
+            //     play: true,
+            //     x: "65%",
+            //     y: "25%",
+            //     width: "30%"
+            // },
+
+        ],
+        authore: "Самуэль Хикерс",
+        dialogue: "Планета имеет сильную экосистемную взаимосвязь. Любое вмешательство в недра может привести к непредсказуемым последствиям",
         actions: [{ title: "назад", next_scene: "scene_5" },
         { title: "далее", next_scene: "scene_7" }],
     },
 
+    
     scene_7: {
         background: {
-            src: new URL("../assets/scene/b8.mp4", import.meta.url).href,
+            src: new URL("../assets/scene/b7.mp4", import.meta.url).href,
             volume: 0,
             loop: false,
             play: true,
@@ -182,9 +209,15 @@ let episodes_1 = {
             y: "0%",
             width: "100%"
         },
+        audio: {
+            src: new URL("../assets/audio/scene_7.mp3", import.meta.url).href,
+            loop: false,
+            play: true,
+            volume: 1, // 0–1
+        },
         characters: [
             {
-                src: new URL("../assets/scene/p3.webm", import.meta.url).href,
+                src: new URL("../assets/scene/p5.webm", import.meta.url).href,
                 volume: 0,
                 loop: true,
                 play: true,
@@ -192,15 +225,43 @@ let episodes_1 = {
                 y: "25%",
                 width: "30%"
             },
-
+            // {
+            //     src: new URL("../assets/scene/p2.webm", import.meta.url).href,
+            //     volume: 0,
+            //     loop: true,
+            //     play: true,
+            //     x: "65%",
+            //     y: "25%",
+            //     width: "30%"
+            // },
 
         ],
-        authore: "Вождь КаэЗар",
-        dialogue: "Экспедиция и вождь КаэЗар идут по дороге, оглядываясь на бескрайние поля фиолетово-желтых цветов, которые тянутся вдоль горизонта. Вдали виднеются огромные кристаллические образования, отражающие свет местного солнца. Возможно, это и есть Омнилат в его природной форме. Атмосфера спокойная, но каждый шаг Джэка и его команды приближает их к разгадке тайны этого мира.",
+        authore: "Джессика Флэй",
+        dialogue: "Кроме того, наши конкуренты из корпорация  Ironhold уже узнали об Омнилате. У нас есть максимум несколько месяцев, прежде чем они начнут свою экспедицию. Если мы задержимся, они заберут все ресурсы первыми.",
         actions: [{ title: "назад", next_scene: "scene_6" },
         { title: "далее", next_scene: "scene_8" }],
     },
 
+
+
+    // scene_6: {
+    //     background: {
+    //         src: new URL("../assets/scene/b5.mp4", import.meta.url).href,
+    //         volume: 0,
+    //         loop: false,
+    //         play: true,
+    //         x: "0%",
+    //         y: "0%",
+    //         width: "100%"
+    //     },
+    //     characters: [],
+    //     authore: "Система",
+    //     dialogue: "Ангар старой орбитальной станции. В воздухе витает запах горелого металла и машинного масла. В центре — потрёпанный, но ещё рабочий космический челнок. Под ним, копается Стивен, проверяя силовые кабели. Он замечает приближающегося Джека и, не отвлекаясь от работы, говорит...",
+    //     actions: [{ title: "назад", next_scene: "scene_5" },
+    //     { title: "далее", next_scene: "scene_7" }],
+    // },
+
+   
     scene_8: {
         background: {
             src: new URL("../assets/scene/b6.mp4", import.meta.url).href,
